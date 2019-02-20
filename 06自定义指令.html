@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="app">
-        <input type="text" v-focus v-color>
+        <input type="text" v-focus v-color="'green'">
     </div>
     <script>
         //自定义指令
@@ -32,8 +32,8 @@
         Vue.directive('color',{
             //样式，只要通过指令绑定给了元素，不管这个元素有没有被插入到页面中去，这个元素肯定有了一个内联样式
             //将来元素肯定会显示到页面中，这时候，浏览器的渲染引擎必然会解析样式，应用给这个元素
-            bind:function (el) {
-                el.style.color = 'red'
+            bind:function (el,binding) {
+                el.style.color = binding.value
                 // 和样式有关的操作，一般写在bind中
             }
         })
