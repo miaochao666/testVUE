@@ -7,10 +7,10 @@
 </head>
 <body>
     <div id="app">
-        <input type="text" v-focus v-color="'green'">
+        <input type="text" v-focus v-color="'green'" v-fontweight="900">
     </div>
     <script>
-        //自定义指令
+        //自定义全局指令
         //参数1：指令名称，在定义的时候名称前面不需要加v-前缀，但在调用的时候要加v-前缀
         //参数2：是一个对象，这个对象身上，有一些指令相关的函数，这些函数可在特定阶段执行相关操作
         Vue.directive('focus',{
@@ -46,6 +46,14 @@
             },
             methods:{
 
+            },
+            //自定义私有指令
+            directives:{
+                'fontweight':{
+                    bind:function (el,binding) {
+                        el.style.fontWeight = binding.value
+                    }
+                }
             }
         })
     </script>
