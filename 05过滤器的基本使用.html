@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{msg| msgFormat('+1+1','111') | test}}</p>
+    </div>
+
+    <div id="app1">
+        <p>{{msg | msgFormat('+1+1','111')}} </p>
+    </div>
+    <script>
+        //定义一个Vue全局过滤器，参数中的a为上述标签中的msg，所有的Vue实例共享
+        Vue.filter('msgFormat',function (a,b,c) {
+            return a+b+c
+        })
+        Vue.filter('test',function (a) {
+            return a+'******'
+        })
+
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                msg: '测试公有过滤器',
+            }
+        })
+
+        //定义私有过滤器
+        var vm1 = new Vue({
+            el:"#app1",
+            data:{
+                msg: '测试私有过滤器',
+            },
+            filters:{//过滤器有两个条件 【过滤器名称和处理函数】
+                //过滤器调用时采用就近原则，如果私有过滤器和共有过滤器名称一致，调用的是私有过滤器
+                msgFormat:function (a,b,c) {
+                    return a+b+c+"@@@@@"
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

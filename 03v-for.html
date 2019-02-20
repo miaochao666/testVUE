@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--&lt;!&ndash;i为索引值&ndash;&gt;-->
+    <!--<p v-for="(item,i) in list">{{i}}-&#45;&#45;{{item}}</p>-->
+    <!--&lt;!&ndash;遍历对象数组&ndash;&gt;-->
+    <!--<p v-for="user in Objects">{{user.id}}-&#45;&#45;{{user.name}}</p>-->
+    <!--&lt;!&ndash;遍历单个对象上的每个属性，在val和key后面还有一个索引值，但并不常用&ndash;&gt;-->
+    <!--<p v-for="(val,key) in user">{{key}}:{{val}}</p>-->
+
+    <!--&lt;!&ndash;in后面还可放数字，会从1开始输出&ndash;&gt;-->
+    <!--<span v-for="count in 10">{{count}}</span>-->
+
+    <!--key属性的基本使用-->
+    <!--
+        在key使用的时候，必须使用v-bind绑定的形式指定key的值
+        在组件中，使用v-for循环的时候，指定唯一的 字符串/数字 类型为key的值否则数组遍历完成后会失去绑定，只留下索引值绑定
+    -->
+    <div>
+        <label>
+            ID: <input type="text" v-model="id">
+        </label>
+
+        <label>
+            NAME: <input type="text" v-model="name">
+        </label>
+        <input type="button" value="添加" @click="add">
+    </div>
+
+    <p v-for="item in list2" :key="item.id">
+        <input type="checkbox">{{item.name}}
+    </p>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            list:[1,2,3,4,5,6,7],
+            Objects:[
+                {id:'aaa',name:'as1'},
+                {id:'ccc',name:'as2'},
+                {id:3,name:'as3'},
+            ],
+            user:{
+                id:2,
+                name:'sdasdsd',
+                sex:22
+            },
+            id:'',
+            name:'',
+            list2:[
+                {id:1,name:'张三'},
+                {id:2,name:'李四'},
+                {id:3,name:'王五'},
+                {id:4,name:'马六'},
+            ] 
+            
+        },
+        methods:{
+            add(){
+                this.list2.unshift({id:this.id,name:this.name})
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-focus>
+    </div>
+    <script>
+        //自定义指令
+        //参数1：指令名称，在定义的时候名称前面不需要加v-前缀，但在调用的时候要加v-前缀
+        //参数2：是一个对象，这个对象身上，有一些指令相关的函数，这些函数可在特定阶段执行相关操作
+        Vue.directive('focus',{
+            //在每个函数中第一个参数永远是el，表示被绑定了指令的那个元素，这个el参数，是一个原生的js对象
+            bind:function (el) {
+                //每当指令绑定到元素上的时候，会立即执行这个bind函数，只执行一次
+                //在元素刚v绑定了指令的时候，还没有插入到DOM中去，这时候，调用focus方法没有作用
+                //因为，一个元素只有插入DOM之后，才能获取焦点
+            },
+            inserted:function (el) { //inserted表示元素插入到DOM中的时候，会执行inserted函数（触发一次）
+                el.focus();
+            },
+            updated:function (el) { //当VNode更新的时候，会执行updated，可能会触发多次
+
+            }
+        })
+
+
+        var vm=new Vue({
+            el:'#app',
+            data:{
+
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <style>
+        .red{
+            color:red;
+        }
+
+        .thin{
+            font-weight: 200;
+        }
+
+        .italic{
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--1：直接传递数组，用v-bind(:)绑定 类名用单引号括起来-->
+    <h1 :class="['red','thin','italic']">样式测试</h1>
+
+    <!--2: 在数组中使用三元表达式或用对象代替三元表达式-->
+    <h1 :class="['red',{'thin':flag},  flag ? 'italic' : '' ]">样式测试</h1>
+
+    <!--3：直接传递对象-->
+    <h1 :class="{red:true , thin:true , italic:true}">样式测试</h1>
+    <h1 :class="classObj">样式测试</h1>
+
+
+    <!--style内联样式 当属性里面有特殊字符串( - )时需加双引号-->
+    <h1 :style="{ color:'red' , 'font-weight':200}">h1测试</h1>
+    <!--也可以像上面乙方放置对象数组-->
+    <h1 :style="styleObj">h1测试</h1>
+</div>
+<script type="text/javascript">
+    var vue = new Vue({
+        el:"#app",
+        data:{
+            flag:true,
+            classObj:{red:true , thin:true , italic:true},
+            styleObj:{ color:'red' , 'font-weight':200}
+        },
+        methods:{
+
+        }
+    })
+</script>
+</body>
+</html>
