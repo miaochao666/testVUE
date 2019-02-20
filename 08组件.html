@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<!--
+    组件就是为了拆分vue实例的代码量的，能够让我们以不同的组件，来划分不同的功能模块
+    将来我们需要什么功能就可以去调用对应的组件即可
+-->
+<div id="app">
+    <my-com1></my-com1>
+    <mycom2></mycom2>
+    <mycom3></mycom3>
+</div>
+
+<template id="tmp1">
+    <div>
+        <h1>第三种方式创建组件</h1>
+    </div>
+</template>
+
+
+<script>
+    //1.1使用Vue.extend 来创建全局的Vue组件
+    var com1=Vue.extend({
+        template:'<h3>组件创建</h3>'//通过template属性指定了组件要展示的HTML结构
+    })
+    //1.2使用Vue.component（’组件名称‘，创建出来的组件模板对象）
+    //当前实例使用的是驼峰命名法，如果不遵循驼峰命名法直接写组件名称就行
+    Vue.component('myCom1',com1)
+
+    //上面两步可结合成一步
+    // Vue.component('myCom1',Vue.extend({
+    //     template:'<h3>组件创建</h3>'//通过template属性指定了组件要展示的HTML结构
+    // }))
+
+    //2直接使用component创建组件
+    //注意：不论哪种方式创建出来的组件，组件的template属性指向的模板内容，必须有且只能有唯一的根元素
+    Vue.component('mycom2',{
+        template:'<div><h3>第二种方式</h3><span>222222</span></div>'
+    })
+
+    //3推荐使用 在被控制的#app外面使用template元素定义组件的HTML模板结构
+    Vue.component('mycom3',{
+        template:'#tmp1'
+    })
+
+    //以上三种方式都为全局组件
+
+
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+
+        },
+        methods:{
+
+        },
+        //创建私有组件
+        components:{
+            mycom4:{
+                //还可以像第三种方式的写法
+                template:'<h1>私有组件，只能在 #app 中使用</h1>'
+            }
+        }
+    })
+</script>
+</body>
+</html>

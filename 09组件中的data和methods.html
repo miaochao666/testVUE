@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<!--
+    组件就是为了拆分vue实例的代码量的，能够让我们以不同的组件，来划分不同的功能模块
+    将来我们需要什么功能就可以去调用对应的组件即可
+-->
+<div id="app">
+    <my-com1></my-com1>
+    <!--第一种切换方式-->
+    <a href="" @click.prevent="flag=true">登录</a>
+    <a href="" @click.prevent="flag=false">注册</a>
+    <login v-if="flag"></login>
+    <register v-else="flag"></register>
+
+<!--第二种切换方式-->
+    <a href="" @click.prevent="comName='login'">登录</a>
+    <a href="" @click.prevent="comName='register'">注册</a>
+    <component :is="comName"></component>
+</div>
+
+<script>
+
+    //上面两步可结合成一步
+    Vue.component('myCom1',{
+        template:'<h3>组件创建---{{msg}}</h3> ',//通过template属性指定了组件要展示的HTML结构
+        //组件自己的data数据，但这个data是一个方法而且返回一个对象，获取数据的方式为插值表达式{{}}
+        data:function () {
+            return {
+                msg:'这是组件中自己的数据'
+            }
+        }
+    })
+
+    Vue.component('login',{
+        template:'<h3>登录组件</h3>'
+    })
+
+    Vue.component('register',{
+        template:'<h3>注册组件</h3>'
+    })
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            flag:true,
+            comName:'login'
+        },
+        methods:{
+
+        },
+
+    })
+</script>
+</body>
+</html>
