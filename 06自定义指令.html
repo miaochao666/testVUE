@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="app">
-        <input type="text" v-focus>
+        <input type="text" v-focus v-color>
     </div>
     <script>
         //自定义指令
@@ -22,9 +22,19 @@
             },
             inserted:function (el) { //inserted表示元素插入到DOM中的时候，会执行inserted函数（触发一次）
                 el.focus();
+                //和js行为有关的操作，最好放在inserted中去执行，放置js行为不生效
             },
             updated:function (el) { //当VNode更新的时候，会执行updated，可能会触发多次
 
+            }
+        })
+
+        Vue.directive('color',{
+            //样式，只要通过指令绑定给了元素，不管这个元素有没有被插入到页面中去，这个元素肯定有了一个内联样式
+            //将来元素肯定会显示到页面中，这时候，浏览器的渲染引擎必然会解析样式，应用给这个元素
+            bind:function (el) {
+                el.style.color = 'red'
+                // 和样式有关的操作，一般写在bind中
             }
         })
 
