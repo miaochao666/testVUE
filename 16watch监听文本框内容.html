@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="a">+
+    <input type="text" v-model="b">=
+    <input type="text" v-model="result">
+</div>
+<script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            a:'',
+            b:'',
+            result:''
+        },
+        watch:{
+            //使用这个属性可以监视data中指定数据的变化，然后触发这个watch中对应的function函数
+            //切记前面的参数如果有特殊符号如“-”则需要加引号
+            a:function (newVal,oldVal) {
+                console.log(oldVal+'*------*'+'newVal')
+                this.result=this.a+this.b;
+            }
+        }
+    })
+</script>
+</body>
+</html>

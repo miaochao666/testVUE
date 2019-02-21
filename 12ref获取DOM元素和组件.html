@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
+</head>
+<body>
+
+<div id="app">
+    <input type="button" value="获取元素" @click="getElement">
+    <h3 ref="myh3">目标标签内容</h3>
+
+    <hr>
+    <login ref="login"></login>
+</div>
+
+<script>
+    var login={
+        template:'<h4>组件</h4>',
+        data(){
+            return {
+                msg:'son msg'
+            }
+        },
+        methods:{
+            show(){
+                console.log('调用了子组件的方法')
+            }
+        }
+    }
+    var vm=new Vue({
+        el:'#app',
+        data:{
+
+        },
+        methods: {
+            getElement() {
+                console.log(this.$refs.myh3.innerText)
+                console.log(this.$refs.login.msg)
+                this.$refs.login.show()
+            }
+        },
+        components:{
+            login
+        }
+    })
+</script>
+</body>
+</html>

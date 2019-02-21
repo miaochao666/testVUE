@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <style>
+        /*
+        v-enter [时间点] 是进入之前，元素的起始状态，此时还没有开始进入
+         */
+        .v-enter,
+        /*
+        v-leave-to [时间点] 在东环离开之后，离开的终止状态，此时元素的动画已经结束
+         */
+        .v-leave-to{
+            opacity: 0;
+            transform:translateX(50px);
+        }
+
+        /*
+        v-enter-active [入场动画的时间段]
+         */
+        .v-enter-active,
+
+        /*
+        v-leave-active [离场动画的时间段]
+         */
+        .v-leave-active{
+            transition: all 0.4s ease;
+        }
+
+
+        /*
+        固定搭配
+        设置在动画放映时的同步动作，比如列表元素删除时，实现后续元素渐渐地飘上来
+        .v-move{
+            transition: all 0.4s ease;
+        }
+        .v-leave-active{
+            position:absolute;
+        }
+        */
+
+
+
+
+
+        .my-enter,
+        .my-leave-to{
+            opacity: 0;
+            transform:translateY(50px);
+        }
+
+
+        .my-enter-active,
+        .my-leave-active{
+            transition: all 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <input type="button" @click="flag=!flag" value="triggle">
+    <!--使用transition元素，把需要被动画控制的元素包裹起来-->
+    <transition>
+        <h3 v-if="flag">显示内容</h3>
+    </transition>
+    <hr>
+    <input type="button" @click="flag2=!flag2" value="triggle">
+    <!--使用transition元素，把需要被动画控制的元素包裹起来-->
+    <!--定制name属性，然后将style中的v改成my就可以实现定制动画-->
+    <transition name="my">
+        <h3 v-if="flag2">显示内容</h3>
+    </transition>
+
+
+    <!--
+
+        如果要实现动画的元素需要用v-for遍历出来，就不能用transition，而是改成各部分transition-group
+        给transition-group添加appear属性，实现页面刚展示出来的时候，由下至上的入场效果
+
+        通过为transition-group元素，设置tag属性，指定transition-group渲染为指定的元素，如果不指定，默认
+        渲染为span标签（推荐使用）
+        例：
+        <transition-group appear tag='ul'>
+            <li v-for="(item, i) in list" :key="item.id" @click="del(i)">
+                {{item.id}} --- {{item.name}}
+            </li>
+        </transition-group>
+
+    -->
+
+
+
+
+</div>
+<script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            flag:false,
+            flag2:false
+        }
+    })
+</script>
+</body>
+</html>

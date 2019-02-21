@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+<div id="app">
+    <input type="button" value="toggle" @click="flag=!flag">
+    <!--点击按钮进行显现和隐藏-->
+    <!--1-->
+    <!--<transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">-->
+        <!--<h2 v-if="flag">测试特效</h2>-->
+    <!--</transition>-->
+
+
+    <!--2    duration:绑定动画时间-->
+    <!--<transition enter-active-class=" bounceIn" leave-active-class=" bounceOut" :duration="200">-->
+        <!--<h2 v-if="flag" class="animated">测试特效</h2>-->
+    <!--</transition>-->
+
+    <!--3  分别设置出场和入场的时间-->
+    <transition enter-active-class=" bounceIn" leave-active-class=" bounceOut" :duration="{enter:100,leave:500}">
+        <h2 v-if="flag" class="animated">测试特效</h2>
+    </transition>
+</div>
+<script>
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            flag:false
+        }
+    })
+</script>
+</body>
+</html>

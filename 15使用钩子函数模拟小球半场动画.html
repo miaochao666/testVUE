@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
+    <style>
+        .ball{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="小球动画" @click="flag=!flag">
+
+    <transition
+        @before-enter="beforeEnter"
+        @enter="enter"
+        @after-enter="afterEnter"
+        >
+        <div v-show="flag" class="ball"></div>
+    </transition>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                flag:false
+            },
+            methods:{
+                //注意：动画钩子函数的第一个参数：el，表示要执行动画的那个DOM元素，是个原生的JS DOM对象
+                beforeEnter(el){
+                    //beforeEnter表示动画入场之前，此时，动画尚未开始，可以在beforeEnter中
+                    //设置起始样式
+                    el.style.transform="translate(0,0)"
+                },
+                enter(el,done){
+
+                    el.offsetLeft//这行代码没有实际意义，但不写的话就没有动画效果
+                    el.style.transform="translate(150px,450px)"
+                    el.style.transition="all 1s ease"
+                    //这里的done其实就是afterEnter函数，如果不写的话会在下个方法开始时出现明显的间隔
+                    done();
+                },
+                afterEnter(el){
+                    //动画完成之后调用afterEnter隐藏小球
+                    this.flag=!this.flag
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--父组件向子组件传递方法，使用的是实际那绑定机制-->
+        <com2 @func="show"></com2>
+    </div>
+
+    <template id="tmp1">
+        <div>
+            <h1>子组件</h1>
+            <input type="button" value="子组件按钮" @click="myclick">
+        </div>
+    </template>
+
+    <script>
+        var com2={
+            //通过指定了一个Id，表示要去加载这个指定Id的template元素中的内容，当作组件的HTML结构
+            template:'#tmp1',
+            data(){
+                return {
+                    sonmsg:{name:"张三",age:6}
+                }
+            },
+            methods:{
+                myclick(){
+                    //当点击子组件按钮的时候，拿到父组件传递过来的func方法，并调用
+                    this.$emit('func',this.sonmsg)
+                }
+            }
+        }
+
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                datamsg:null
+            },
+            methods:{
+                show(data,a){
+                    console.log(data)
+                    this.datamsg=data
+                }
+            },
+            components:{
+                com2
+            }
+        })
+    </script>
+</body>
+</html>

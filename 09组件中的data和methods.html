@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
+    <style>
+
+        .v-enter,
+
+        .v-leave-to{
+            opacity: 0;
+            transform:translateX(50px);
+        }
+
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 0.4s ease;
+        }
+    </style>
 </head>
 <body>
 <!--
@@ -21,12 +36,14 @@
 <!--第二种切换方式-->
     <a href="" @click.prevent="comName='login'">登录</a>
     <a href="" @click.prevent="comName='register'">注册</a>
-    <component :is="comName"></component>
+    <!--通过mode模式，设置组件切换时候的模式-->
+    <transition mode="out-in">
+        <component :is="comName"></component>
+    </transition>
 </div>
 
 <script>
 
-    //上面两步可结合成一步
     Vue.component('myCom1',{
         template:'<h3>组件创建---{{msg}}</h3> ',//通过template属性指定了组件要展示的HTML结构
         //组件自己的data数据，但这个data是一个方法而且返回一个对象，获取数据的方式为插值表达式{{}}
@@ -50,9 +67,6 @@
         data:{
             flag:true,
             comName:'login'
-        },
-        methods:{
-
         },
 
     })
