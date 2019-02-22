@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
+    <!--安装v-router路由模块-->
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <router-link to="/account">组件</router-link>
+
+    <router-view></router-view>
+</div>
+
+<template id="temp">
+    <div>
+        <h3>account组件</h3>
+        <router-link to="/account/login">登录</router-link>
+        <router-link to="/account/register">注册</router-link>
+        <router-view></router-view>
+    </div>
+
+</template>
+<script>
+    var account={
+        template:'#temp'
+    }
+
+    var login={
+        template:'<h3>登录组件</h3>'
+    }
+    var register={
+        template:'<h3>注册组件</h3>'
+    }
+
+    var vueroute=new VueRouter({
+        routes:[
+            {
+                path:'/account',
+                component:account,
+                //使用children属性实现子路由，同时，子路由的path前面不要带 / ，否则永远以根路径开始请求，这样不方便我们
+                //用户去理解URL地址
+                children:[
+                    {path:'login',component: login},
+                    {path:'register',component: register}
+                ]
+            }
+        ]
+    })
+
+    var vm=new Vue({
+        el:'#app',
+        router: vueroute
+    })
+</script>
+</body>
+</html>
